@@ -15,6 +15,17 @@ public class vectores {
 		y = 0;
 	}
 
+	public double getMagnitud()
+	{
+		return Math.sqrt(x*x + y*y);
+	}
+	
+	public vectores setDireccion(double angulo)
+	{
+		return new vectores(Math.cos(angulo)*getMagnitud(), Math.sin(angulo)*getMagnitud());
+	}
+	
+	
 	public double getX() {
 		return x;
 	}

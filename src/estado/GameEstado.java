@@ -11,7 +11,7 @@ public class GameEstado {
 	
 	public GameEstado()
 	{
-		player = new jugador(new vectores(100,500), recursos.player );
+		player = new jugador(new vectores(100,500), new vectores(), recursos.player );
 	}
 	
 	public void actualizar()
