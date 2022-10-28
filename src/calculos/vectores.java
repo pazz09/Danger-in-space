@@ -25,16 +25,14 @@ public class vectores {
 		return new vectores(x*valor, y*valor);
 	}
 	
-	public void limite(double valor)
+	public vectores limite(double valor)
 	{
-		if (x > valor)
-			x = valor;
-		if (x<-valor)
-			x = -valor;
-		if (y > valor)
-			y = valor;
-		if (y<-valor)
-			y = -valor;
+		
+		if(getMagnitud() > valor)
+		{
+			return this.normalizar().escala(valor);
+		}
+		return this;
 	}
 	
 	public vectores normalizar()
