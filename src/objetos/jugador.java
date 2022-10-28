@@ -13,11 +13,13 @@ public class jugador extends movinObjetos{
 
 
 	private vectores direc;
-	
-
-	public jugador(vectores posicion, vectores velocidad, BufferedImage textura) {
-		super(posicion, velocidad, textura);
+	private vectores aceleracion;
+	private final double acc = 0.2;
+	private final double ANGULODELTA = Math.PI/20;
+	public jugador(vectores posicion, vectores velocidad, double maxVel, BufferedImage textura) {
+		super(posicion, velocidad, maxVel, textura);
 		direc = new vectores(0,1);
+		aceleracion = new vectores();
 	}
 	
 	
@@ -26,13 +28,28 @@ public class jugador extends movinObjetos{
 	public void actualizar() {
 		
 		if(teclado.RIGHT) {
-			angulo += Math.PI/20;
+			angulo += ANGULODELTA;
 		}
 		
 		if(teclado.LEFT) {
-			angulo -= Math.PI/20;
+			angulo -= ANGULODELTA;
 		}
+		
+		if (teclado.UP)
+		{
+			aceleracion = direc.escala(acc);
+		}else
+		{
+			if(velocidad.getMagnitud() != 0)
+			{
+				aceleracion = velocidad.escala(-1).normalizar().escala(acc);
+			}
+		}
+		velocidad = velocidad.add(aceleracion);
+		velocidad.limite(maxVel);
+				
 		direc = direc.setDireccion(angulo - Math.PI/2);
+		posicion = posicion.add(velocidad);
 		
 	}
 

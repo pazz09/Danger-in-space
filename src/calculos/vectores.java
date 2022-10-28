@@ -14,7 +14,34 @@ public class vectores {
 		x = 0;
 		y = 0;
 	}
-
+	
+	public vectores add(vectores v)
+	{
+		return new vectores(x + v.getX(),y + v.getY());
+	}
+	
+	public vectores escala(double valor)
+	{
+		return new vectores(x*valor, y*valor);
+	}
+	
+	public void limite(double valor)
+	{
+		if (x > valor)
+			x = valor;
+		if (x<-valor)
+			x = -valor;
+		if (y > valor)
+			y = valor;
+		if (y<-valor)
+			y = -valor;
+	}
+	
+	public vectores normalizar()
+	{
+		return new vectores(x / getMagnitud(), y / getMagnitud());
+	}
+	
 	public double getMagnitud()
 	{
 		return Math.sqrt(x*x + y*y);
