@@ -7,7 +7,7 @@ public class teclado implements KeyListener {
 	
 	private boolean[] keys = new boolean[256];
 	
-	public static boolean UP, LEFT, RIGHT;
+	public static boolean UP, LEFT, RIGHT, DISPARO;
 	
 	
 	public teclado()
@@ -15,6 +15,7 @@ public class teclado implements KeyListener {
 		UP = false;
 		LEFT = false;
 		RIGHT = false;
+		DISPARO = false;
 	}
 	
 	public void actualizar()
@@ -22,6 +23,7 @@ public class teclado implements KeyListener {
 		UP = keys[KeyEvent.VK_UP];
 		LEFT = keys[KeyEvent.VK_LEFT];
 		RIGHT = keys[KeyEvent.VK_RIGHT];
+		DISPARO = keys[KeyEvent.VK_SPACE];
 	}
 	 
 	@Override

@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import calculos.vectores;
+import estado.GameEstado;
 import graficos.recursos;
 import main.Window;
 import movimiento.teclado;
@@ -18,9 +19,11 @@ public class jugador extends movinObjetos{
 	private final double acc = 0.2;
 	private final double ANGULODELTA = Math.PI/20;
 	private boolean acelerando;
+	//private GameEstado gameEstado;
 	
-	public jugador(vectores posicion, vectores velocidad, double maxVel, BufferedImage textura) {
+	public jugador(vectores posicion, vectores velocidad, double maxVel, BufferedImage textura, GameEstado gameEstado) {
 		super(posicion, velocidad, maxVel, textura);
+		//this.gameEstado = gameEstado;
 		direc = new vectores(0,1);
 		aceleracion = new vectores();
 	}
@@ -29,6 +32,12 @@ public class jugador extends movinObjetos{
 
 	@Override
 	public void actualizar() {
+		/*
+		if(teclado.DISPARO)
+		{
+			gameEstado.getMovinObjetos().add(new Laser(getCentro().add(), aceleracion, ANGULODELTA, ANGULODELTA, textura));
+		}
+		*/
 		
 		if(teclado.RIGHT) {
 			angulo += ANGULODELTA;
@@ -71,11 +80,11 @@ public class jugador extends movinObjetos{
 	public void dibujar(Graphics g) {
 		
 		Graphics2D graf = (Graphics2D)g;
-		AffineTransform at1 = AffineTransform.getTranslateInstance(posicion.getX(),posicion.getY()+height);
-		at1.rotate(angulo,width/2,-height/2);
+		AffineTransform rotacion1 = AffineTransform.getTranslateInstance(posicion.getX(),posicion.getY()+height);
+		rotacion1.rotate(angulo,width/2,-height/2);
 		if(acelerando)
 		{
-			graf.drawImage(recursos.velocidad, at1, null);
+			graf.drawImage(recursos.velocidad, rotacion1, null);
 		}
 		
 		
