@@ -19,25 +19,39 @@ public class jugador extends movinObjetos{
 	private final double acc = 0.2;
 	private final double ANGULODELTA = Math.PI/20;
 	private boolean acelerando;
-	//private GameEstado gameEstado;
+	private GameEstado gameEstado;
+	
+	private long tiempo, ultimoTiempo;
 	
 	public jugador(vectores posicion, vectores velocidad, double maxVel, BufferedImage textura, GameEstado gameEstado) {
 		super(posicion, velocidad, maxVel, textura);
-		//this.gameEstado = gameEstado;
+		this.gameEstado = gameEstado;
 		direc = new vectores(0,1);
 		aceleracion = new vectores();
+		tiempo = 0;
+		ultimoTiempo = System.currentTimeMillis();
 	}
 	
 	
 
 	@Override
 	public void actualizar() {
-		/*
-		if(teclado.DISPARO)
+		tiempo += System.currentTimeMillis() - ultimoTiempo;
+		ultimoTiempo = System.currentTimeMillis();
+		
+		if(teclado.DISPARO && tiempo > 200)
 		{
-			gameEstado.getMovinObjetos().add(new Laser(getCentro().add(), aceleracion, ANGULODELTA, ANGULODELTA, textura));
+			gameEstado.getMovinObjetos().add(0,new Laser(
+					getCentro().add(direc.escala(width / 2)),
+					direc,
+					10,
+					angulo,
+					recursos.disparo
+					));
+			tiempo = 0;
+			
 		}
-		*/
+		
 		
 		if(teclado.RIGHT) {
 			angulo += ANGULODELTA;
@@ -75,6 +89,12 @@ public class jugador extends movinObjetos{
 			posicion.setY(Window.HEIGHT);
 		
 	}
+
+	public vectores getCentro() {
+		return new vectores(posicion.getX() + width / 2, posicion.getY() + height/2);
+	}
+
+
 
 	@Override
 	public void dibujar(Graphics g) {

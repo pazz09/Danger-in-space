@@ -24,14 +24,12 @@ public class Laser extends movinObjetos{
 	@Override
 	public void dibujar(Graphics g) {
 		Graphics2D graf = (Graphics2D)g;
-		rotacion = AffineTransform.getTranslateInstance(posicion.getX(), posicion.getY());
-		rotacion.rotate(angulo);
+		rotacion = AffineTransform.getTranslateInstance(posicion.getX() - width/2, posicion.getY());
+		rotacion.rotate(angulo,width/2,0);
 		graf.drawImage(textura, rotacion, null);
 		
 	}
 	
-	public vectores getCentro() {
-		return new vectores(posicion.getX() + width/2, posicion.getY() + height/2);
-	}
+	
 
 }
