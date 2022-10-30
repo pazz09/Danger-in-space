@@ -39,7 +39,7 @@ public class jugador extends movinObjetos{
 		tiempo += System.currentTimeMillis() - ultimoTiempo;
 		ultimoTiempo = System.currentTimeMillis();
 		
-		if(teclado.DISPARO && tiempo > 200)
+		if(teclado.DISPARO && tiempo > 100)
 		{
 			gameEstado.getMovinObjetos().add(0,new Laser(
 					getCentro().add(direc.escala(width / 2)),
