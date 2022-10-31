@@ -17,58 +17,54 @@ public class jugador extends movinObjetos{
 	private vectores direc;
 	private vectores aceleracion;
 	private final double acc = 0.2;
-	private final double ANGULODELTA = Math.PI/20;
 	private boolean acelerando;
-	private GameEstado gameEstado;
+	private tiempo vel_disparo;
 	
-	private long tiempo, ultimoTiempo;
 	
 	public jugador(vectores posicion, vectores velocidad, double maxVel, BufferedImage textura, GameEstado gameEstado) {
-		super(posicion, velocidad, maxVel, textura);
-		this.gameEstado = gameEstado;
+		super(posicion, velocidad, maxVel, textura,gameEstado );
 		direc = new vectores(0,1);
 		aceleracion = new vectores();
-		tiempo = 0;
-		ultimoTiempo = System.currentTimeMillis();
+		vel_disparo = new tiempo();
+		
 	}
 	
 	
 
 	@Override
 	public void actualizar() {
-		tiempo += System.currentTimeMillis() - ultimoTiempo;
-		ultimoTiempo = System.currentTimeMillis();
 		
-		if(teclado.DISPARO && tiempo > 100)
+		if(teclado.DISPARO && !vel_disparo.isRun())
 		{
 			gameEstado.getMovinObjetos().add(0,new Laser(
 					getCentro().add(direc.escala(width / 2)),
 					direc,
 					10,
 					angulo,
-					recursos.disparo
+					recursos.disparo,
+					gameEstado
 					));
-			tiempo = 0;
+			vel_disparo.run(constantes.FIRERATE);
 			
 		}
 		
 		
 		if(teclado.RIGHT) {
-			angulo += ANGULODELTA;
+			angulo += constantes.DELTAANGLE;
 		}
 		
 		if(teclado.LEFT) {
-			angulo -= ANGULODELTA;
+			angulo -= constantes.DELTAANGLE;
 		}
 		
 		if (teclado.UP)
 		{
-			aceleracion = direc.escala(acc);
+			aceleracion = direc.escala(constantes.ACC);
 			acelerando = true;
 		}else
 		{
 			if(velocidad.getMagnitud() != 0)
-				aceleracion = velocidad.escala(-1).normalizar().escala(acc);
+				aceleracion = (velocidad.escala(-1).normalizar()).escala(constantes.ACC/2);
 			acelerando = false;
 		}
 		
@@ -79,19 +75,17 @@ public class jugador extends movinObjetos{
 		
 		//Seccion que controla la salida de la pantalla
 		//si pasa el alto o ancho aparece en el lado opuesto
-		if(posicion.getX() > Window.WIDTH)
+		if(posicion.getX() > constantes.WIDTH)
 			posicion.setX(0);
-		if(posicion.getY() > Window.HEIGHT)
+		if(posicion.getY() > constantes.HEIGHT)
 			posicion.setY(0);
 		if(posicion.getX() < 0)
-			posicion.setX(Window.WIDTH);
+			posicion.setX(constantes.WIDTH);
 		if(posicion.getY() < 0)
-			posicion.setY(Window.HEIGHT);
+			posicion.setY(constantes.HEIGHT);
 		
-	}
-
-	public vectores getCentro() {
-		return new vectores(posicion.getX() + width / 2, posicion.getY() + height/2);
+		vel_disparo.actualizar();
+		
 	}
 
 
@@ -100,17 +94,25 @@ public class jugador extends movinObjetos{
 	public void dibujar(Graphics g) {
 		
 		Graphics2D graf = (Graphics2D)g;
-		AffineTransform rotacion1 = AffineTransform.getTranslateInstance(posicion.getX(),posicion.getY()+height);
-		rotacion1.rotate(angulo,width/2,-height/2);
+		AffineTransform rotacion1 = AffineTransform.getTranslateInstance(posicion.getX(), posicion.getY() + height );
+		rotacion1.rotate(angulo, width/2, -height/2);
+		
 		if(acelerando)
 		{
+			
 			graf.drawImage(recursos.velocidad, rotacion1, null);
 		}
 		
 		
 		rotacion = AffineTransform.getTranslateInstance(posicion.getX(), posicion.getY());
 		rotacion.rotate(angulo,width/2,height/2);
-		graf.drawImage(recursos.player, rotacion, null);
+		graf.drawImage(textura, rotacion, null);
 	}
+	
+	
+	public vectores getCentro() {
+		return new vectores(posicion.getX() + width / 2, posicion.getY() + height/2);
+	}
+	
 
 }

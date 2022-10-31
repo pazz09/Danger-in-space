@@ -6,11 +6,12 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 import calculos.vectores;
+import estado.GameEstado;
 
 public class Laser extends movinObjetos{
 
-	public Laser(vectores posicion, vectores velocidad, double maxVel, double angulo, BufferedImage textura) {
-		super(posicion, velocidad, maxVel, textura);
+	public Laser(vectores posicion, vectores velocidad, double maxVel, double angulo, BufferedImage textura, GameEstado gameEstado) {
+		super(posicion, velocidad, maxVel, textura, gameEstado);
 		this.angulo = angulo;
 		this.velocidad = velocidad.escala(maxVel);
 	}
@@ -18,6 +19,9 @@ public class Laser extends movinObjetos{
 	@Override
 	public void actualizar() {
 		posicion = posicion.add(velocidad);
+		if(posicion.getX() < 0 || posicion.getX() > constantes.WIDTH || posicion.getY() < 0 || posicion.getY() > constantes.HEIGHT) {
+			gameEstado.getMovinObjetos().remove(this);
+		}
 		
 	}
 

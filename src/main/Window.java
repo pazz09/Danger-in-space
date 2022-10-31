@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import estado.GameEstado;
 import graficos.recursos;
 import movimiento.teclado;
+import objetos.constantes;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -14,7 +15,7 @@ import java.awt.image.BufferStrategy;
 
 public class Window extends JFrame implements Runnable{
 	
-	public static final int WIDTH = 800, HEIGHT = 600;
+	public static final int WIDTH = 1000, HEIGHT = 600;
 	private Canvas canvas;
 	private Thread thread;
 	private boolean running = false;
@@ -35,23 +36,23 @@ public class Window extends JFrame implements Runnable{
 	public Window()
 	{
 		setTitle("Danger in space");
-		setSize(WIDTH, HEIGHT);
+		setSize(constantes.WIDTH, constantes.HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setVisible(true);
 		
 		canvas = new Canvas();
 		input = new teclado();
 		
-		canvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-		canvas.setMaximumSize(new Dimension(WIDTH, HEIGHT));
-		canvas.setMinimumSize(new Dimension(WIDTH, HEIGHT));
+		canvas.setPreferredSize(new Dimension(constantes.WIDTH, constantes.HEIGHT));
+		canvas.setMaximumSize(new Dimension(constantes.WIDTH, constantes.HEIGHT));
+		canvas.setMinimumSize(new Dimension(constantes.WIDTH, constantes.HEIGHT));
 		canvas.setFocusable(true);
 		
 		
 		add(canvas);
 		canvas.addKeyListener(input);
+		setVisible(true);
 	}
 	
 	

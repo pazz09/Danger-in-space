@@ -37,7 +37,8 @@ public class vectores {
 	
 	public vectores normalizar()
 	{
-		return new vectores(x / getMagnitud(), y / getMagnitud());
+		double magnitud = getMagnitud();
+		return new vectores(x / magnitud, y / magnitud);
 	}
 	
 	public double getMagnitud()
@@ -47,7 +48,8 @@ public class vectores {
 	
 	public vectores setDireccion(double angulo)
 	{
-		return new vectores(Math.cos(angulo)*getMagnitud(), Math.sin(angulo)*getMagnitud());
+		double magnitud = getMagnitud();
+		return new vectores(Math.cos(angulo)*magnitud, Math.sin(angulo)*magnitud);
 	}
 	
 	
