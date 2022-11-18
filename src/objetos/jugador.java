@@ -85,6 +85,7 @@ public class jugador extends movinObjetos{
 			posicion.setY(constantes.HEIGHT);
 		
 		vel_disparo.actualizar();
+		collidesWith();
 		
 	}
 
@@ -109,10 +110,6 @@ public class jugador extends movinObjetos{
 		graf.drawImage(textura, rotacion, null);
 	}
 	
-	
-	public vectores getCentro() {
-		return new vectores(posicion.getX() + width / 2, posicion.getY() + height/2);
-	}
 	
 
 }

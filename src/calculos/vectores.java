@@ -20,6 +20,11 @@ public class vectores {
 		return new vectores(x + v.getX(),y + v.getY());
 	}
 	
+	public vectores restar(vectores v)
+	{
+		return new vectores(x - v.getX(),y - v.getY());
+	}
+	
 	public vectores escala(double valor)
 	{
 		return new vectores(x*valor, y*valor);

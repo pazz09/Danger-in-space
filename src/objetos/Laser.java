@@ -20,8 +20,10 @@ public class Laser extends movinObjetos{
 	public void actualizar() {
 		posicion = posicion.add(velocidad);
 		if(posicion.getX() < 0 || posicion.getX() > constantes.WIDTH || posicion.getY() < 0 || posicion.getY() > constantes.HEIGHT) {
-			gameEstado.getMovinObjetos().remove(this);
+			destruir();
 		}
+		
+		collidesWith();
 		
 	}
 
@@ -33,6 +35,12 @@ public class Laser extends movinObjetos{
 		graf.drawImage(textura, rotacion, null);
 		
 	}
+	
+	@Override
+	public vectores getCentro() {
+		return new vectores(posicion.getX() + width / 2, posicion.getY() + width/2);
+	}
+	
 	
 	
 

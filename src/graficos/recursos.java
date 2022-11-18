@@ -8,7 +8,7 @@ public class recursos {
 	public static BufferedImage disparo;
 	public static BufferedImage velocidad;
 	
-	public static BufferedImage[] roca = new BufferedImage[2];
+	public static BufferedImage[] roca = new BufferedImage[4];
 	public static BufferedImage[] piedra = new BufferedImage[2];
 	public static BufferedImage[] arena = new BufferedImage[1];
 	

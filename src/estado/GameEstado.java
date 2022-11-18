@@ -27,10 +27,10 @@ public class GameEstado {
 		
 		asteroide = 1;
 		
-		nivel_1();
+		nivel();
 	}
 	
-	private void nivel_1() {
+	private void nivel() {
 		
 		double x, y;
 		
@@ -63,6 +63,17 @@ public class GameEstado {
 		for(int i =0; i < movinObjetoss.size(); i++) {
 			movinObjetoss.get(i).actualizar();
 		}
+		
+		
+		for(int i =0; i < movinObjetoss.size(); i++) {
+			if(movinObjetoss.get(i) instanceof asteroides) {
+				return;
+			}
+		}
+		
+		nivel();
+		
+		
 	}
 	
 	public void dibujar(Graphics g)

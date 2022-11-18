@@ -2,6 +2,7 @@ package objetos;
 
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import calculos.vectores;
 import estado.GameEstado;
@@ -27,7 +28,47 @@ public abstract class movinObjetos extends GameObjetos {
 		angulo = 0;
 	}
 
-
+	protected void collidesWith() {
+		
+		ArrayList<movinObjetos> movinObjetoss = gameEstado.getMovinObjetos();
+		
+		for(int i = 0; i < movinObjetoss.size(); i++) {
+			
+			movinObjetos m = movinObjetoss.get(i);
+			
+			if(m.equals(this)) {
+				continue;
+			}
+			
+			double distancia = m.getCentro().restar(getCentro()).getMagnitud();
+			
+			if(distancia < m.width/2 + width/2 && movinObjetoss.contains(this)) {
+				objectCollision(m, this);
+			}
+			
+			
+			
+			
+		}
+	}
+	
+	private void objectCollision(movinObjetos a, movinObjetos b) {
+		if(!(a instanceof asteroides && b instanceof asteroides )) {
+			a.destruir();
+			b.destruir();
+			
+		}
+	}
+	
+	
+	protected void destruir() {
+		gameEstado.getMovinObjetos().remove(this);
+	}
+	
+	protected vectores getCentro() {
+		return new vectores(posicion.getX() + width / 2, posicion.getY() + height/2);
+	}
+	
 	
 
 }
